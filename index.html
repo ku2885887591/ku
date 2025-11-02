@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>霜蓝的兽设介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6ac5cb 0%, #3a8fb7 100%);
+            padding: 30px 20px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .avatar-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .avatar-text {
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #3a8fb7;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 1.8em;
+            margin: 10px 0 5px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 25px;
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: #e9ecef;
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #3a8fb7;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #888;
+        }
+        
+        .modal h2 {
+            color: #3a8fb7;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .modal p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #3a8fb7;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.1);
+            background: #6ac5cb;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        input, textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: #3a8fb7;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: #6ac5cb;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #888;
+            font-size: 0.9em;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            header {
+                padding: 20px 15px 15px;
+            }
+            
+            .avatar {
+                width: 100px;
+                height: 100px;
+            }
+            
+            h1 {
+                font-size: 1.6em;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="avatar-container">
+                <!-- 头像图片，请确保appIcon.png与此HTML文件在同一目录 -->
+                <img src="appIcon.png" alt="霜蓝头像" class="avatar">
+                <div class="avatar-text">嗷呜！</div>
+            </div>
+            <h1>你好，我是阿歪</h1>
+            <p class="subtitle">欢迎来到我的空间</p>
+        </header>
+        
+        <div class="content">
+            <div class="button-grid">
+                <button class="btn" id="introBtn">
+                    <div class="btn-icon">🐾</div>
+                    <div>介绍</div>
+                </button>
+                
+                <button class="btn" id="copyrightBtn">
+                    <div class="btn-icon">©️</div>
+                    <div>版权信息</div>
+                </button>
+                
+                <button class="btn" id="followBtn">
+                    <div class="btn-icon">👥</div>
+                    <div>关注我们</div>
+                </button>
+                
+                <button class="btn" id="contactBtn">
+                    <div class="btn-icon">📞</div>
+                    <div>联系我们</div>
+                </button>
+                
+                <button class="btn" id="commentBtn">
+                    <div class="btn-icon">💬</div>
+                    <div>评论留言</div>
+                </button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>阿歪的空间 © 2025</p>
+        </footer>
+    </div>
+    
+    <!-- 兽设介绍模态框 -->
+    <div class="modal" id="introModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeIntro">&times;</span>
+            <h2>介绍</h2>
+            <p>不犯法</p>
+            <p>公益软件库</p>
+            <p>库</p>
+        </div>
+    </div>
+    
+    <!-- 版权信息模态框 -->
+    <div class="modal" id="copyrightModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeCopyright">&times;</span>
+            <h2>版权信息</h2>
+            <p>角色设计及所有相关图像、文字内容版权归创作者所有。</p>
+            <p>未经许可，禁止任何形式的商业使用、修改或二次发布。</p>
+            <p>个人非商业用途的分享需注明出处并保留原始链接。</p>
+            <p>如有合作意向，请通过"联系我们"功能获取授权信息。</p>
+        </div>
+    </div>
+    
+    <!-- 关注我们模态框 -->
+    <div class="modal" id="followModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeFollow">&times;</span>
+            <h2>关注我们</h2>
+            <p>关注阿歪的官方账号，获取最新动态和作品更新：</p>
+            <div class="social-links">
+                <a href="#" class="social-icon">微</a>
+                <a href="#" class="social-icon">B</a>
+                <a href="#" class="social-icon">Q</a>
+                <a href="#" class="social-icon">微</a>
+            </div>
+            <p style="text-align: center; margin-top: 20px;">扫描二维码关注官方公众号</p>
+            <div style="text-align: center; margin: 15px 0;">
+                <div style="width: 150px; height: 150px; background: #f0f0f0; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+                    [二维码位置]
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 联系我们模态框 -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeContact">&times;</span>
+            <h2>联系我们</h2>
+            <p>如有任何问题或合作意向，欢迎通过以下方式联系我们：</p>
+            <p><strong>邮箱：</strong> 3885887581@qq.com</p>
+            <p><strong>QQ：</strong> 3885887591</p>
+            <p>我们会在1-3个工作日内回复您的消息。</p>
+        </div>
+    </div>
+    
+    <!-- 评论留言模态框 -->
+    <div class="modal" id="commentModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeComment">&times;</span>
+            <h2>评论留言</h2>
+            <form id="commentForm">
+                <input type="text" placeholder="您的昵称" required>
+                <input type="email" placeholder="您的邮箱" required>
+                <textarea placeholder="请输入您的留言..." required></textarea>
+                <button type="submit" class="submit-btn">提交留言</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 获取按钮和模态框元素
+        const introBtn = document.getElementById('introBtn');
+        const copyrightBtn = document.getElementById('copyrightBtn');
+        const followBtn = document.getElementById('followBtn');
+        const contactBtn = document.getElementById('contactBtn');
+        const commentBtn = document.getElementById('commentBtn');
+        
+        const introModal = document.getElementById('introModal');
+        const copyrightModal = document.getElementById('copyrightModal');
+        const followModal = document.getElementById('followModal');
+        const contactModal = document.getElementById('contactModal');
+        const commentModal = document.getElementById('commentModal');
+        
+        // 获取关闭按钮
+        const closeIntro = document.getElementById('closeIntro');
+        const closeCopyright = document.getElementById('closeCopyright');
+        const closeFollow = document.getElementById('closeFollow');
+        const closeContact = document.getElementById('closeContact');
+        const closeComment = document.getElementById('closeComment');
+        
+        // 打开模态框的函数
+        introBtn.addEventListener('click', () => {
+            introModal.style.display = 'flex';
+        });
+        
+        copyrightBtn.addEventListener('click', () => {
+            copyrightModal.style.display = 'flex';
+        });
+        
+        followBtn.addEventListener('click', () => {
+            followModal.style.display = 'flex';
+        });
+        
+        contactBtn.addEventListener('click', () => {
+            contactModal.style.display = 'flex';
+        });
+        
+        commentBtn.addEventListener('click', () => {
+            commentModal.style.display = 'flex';
+        });
+        
+        // 关闭模态框的函数
+        closeIntro.addEventListener('click', () => {
+            introModal.style.display = 'none';
+        });
+        
+        closeCopyright.addEventListener('click', () => {
+            copyrightModal.style.display = 'none';
+        });
+        
+        closeFollow.addEventListener('click', () => {
+            followModal.style.display = 'none';
+        });
+        
+        closeContact.addEventListener('click', () => {
+            contactModal.style.display = 'none';
+        });
+        
+        closeComment.addEventListener('click', () => {
+            commentModal.style.display = 'none';
+        });
+        
+        // 点击模态框外部关闭
+        window.addEventListener('click', (event) => {
+            if (event.target === introModal) {
+                introModal.style.display = 'none';
+            }
+            if (event.target === copyrightModal) {
+                copyrightModal.style.display = 'none';
+            }
+            if (event.target === followModal) {
+                followModal.style.display = 'none';
+            }
+            if (event.target === contactModal) {
+                contactModal.style.display = 'none';
+            }
+            if (event.target === commentModal) {
+                commentModal.style.display = 'none';
+            }
+        });
+        
+        // 处理表单提交
+        document.getElementById('commentForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('感谢您的<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>霜蓝的兽设介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6ac5cb 0%, #3a8fb7 100%);
+            padding: 30px 20px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .avatar-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .avatar-text {
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #3a8fb7;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 1.8em;
+            margin: 10px 0 5px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+ ！我们会尽快回复。');
+            commentModal.style.display = 'none';
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
